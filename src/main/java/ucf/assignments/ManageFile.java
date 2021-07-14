@@ -55,7 +55,7 @@ public class ManageFile {
 	}
 
 
-	public void writeFile(File file, ArrayList<Todo> data) {
+	public void writeFile(File file, ArrayList<InventoryItem> data) {
 		// get file and object data from parameter
 		// write data to a new file based on file path
 		try {

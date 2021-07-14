@@ -8,7 +8,7 @@ package ucf.assignments;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TodoTest {
+class InventoryItemTest {
 
 	String date = "2020-10-20";
 	String text = "This is a todo description!";

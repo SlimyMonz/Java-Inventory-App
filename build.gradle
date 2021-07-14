@@ -43,7 +43,7 @@ javafx {
 
 //needed for Application -> Run
 application {
-    mainClass = 'ucf.assignments.App'
+    mainClass = 'ucf.assignments.Main'
 }
 
 

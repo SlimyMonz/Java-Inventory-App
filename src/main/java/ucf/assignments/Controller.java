@@ -15,30 +15,33 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 public class Controller {
 
 	@FXML
-	private TextField todoField;
+	public TextField searchField;
 	@FXML
-	private DatePicker dueDatePicker;
+	public TextField valueField;
+	@FXML
+	public TextField serialField;
+	@FXML
+	public TextField descriptionField;
 
 	@FXML
-	private TableView<Todo> tableViewContainer;
+	private TableView<InventoryItem> tableViewContainer;
 	@FXML
-	private ObservableList<Todo> data;
+	private ObservableList<InventoryItem> data;
 	@FXML
-	private ObservableList<Todo> dataTemp;
+	private ObservableList<InventoryItem> dataTemp;
 
 	@FXML
-	private TableColumn<Todo, String> dueDateColumn;
+	private TableColumn<InventoryItem, String> valueColumn;
 	@FXML
-	private TableColumn<Todo, String> todoFieldColumn;
+	private TableColumn<InventoryItem, String> serialColumn;
 	@FXML
-	private TableColumn<Todo, Boolean> boolColumn;
+	private TableColumn<InventoryItem, String> descriptionColumn;
 
 	@FXML
 	private FileChooser fileChooser;
@@ -62,16 +65,13 @@ public class Controller {
 		data = FXCollections.observableArrayList();
 		dataTemp = FXCollections.observableArrayList();
 
-		// set default datepicker value
-		dueDatePicker.setValue(LocalDate.now());
-		todoField.setText("Todo");
 
 		// use Columns class to set column data types
 		Columns column = new Columns();
 
-		column.setDateColumn(dueDateColumn);
-		column.setTextColumn(todoFieldColumn);
-		column.setBoolColumn(boolColumn);
+		column.setDateColumn(valueColumn);
+		column.setTextColumn(serialColumn);
+		column.setBoolColumn(descriptionColumn);
 
 
 		// set items for listViewContainer from ObservableList
@@ -79,7 +79,7 @@ public class Controller {
 
 		// clear columns to make sure container is empty, then add all the columns to the container
 		tableViewContainer.getColumns().clear();
-		tableViewContainer.getColumns().addAll(dueDateColumn, todoFieldColumn, boolColumn);
+		tableViewContainer.getColumns().addAll(valueColumn, serialColumn, descriptionColumn);
 
 	}
 
@@ -90,66 +90,38 @@ public class Controller {
 		// launch a new TodoList app
 
 		try {
-			new App().start(new Stage());
+			new Main().start(new Stage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@FXML
-	public void clickDeleteList(ActionEvent actionEvent) {
-		// clear program of data
-		data.clear();
-	}
 
 	@FXML
-	public void clickShowAll(ActionEvent actionEvent) {
-		// show all objects
-		tableViewContainer.setItems(data);
+	public void clickNewItem(ActionEvent actionEvent) {
 
-	}
-
-	@FXML
-	public void clickShowCompleted(ActionEvent actionEvent) {
-		// make objects that have completed=true to be visible in each column
-
-		dataTemp.clear();
-		dataTemp.addAll(data);
-
-		dataTemp.removeIf(item -> !item.getBool());
-
-		tableViewContainer.setItems(dataTemp);
-
-	}
-
-	@FXML
-	public void clickShowIncomplete(ActionEvent actionEvent) {
-		// make objects that have completed=false invisible in each column
-
-		dataTemp.clear();
-		dataTemp.addAll(data);
-
-		dataTemp.removeIf(Todo::getBool);
-
-		tableViewContainer.setItems(dataTemp);
-
-	}
-
-	@FXML
-	public void clickNewTodo(ActionEvent actionEvent) {
 		// add new object with the values selected in the bottom bar containers
+		data.add(new InventoryItem(
+				valueField.getText(),
+				serialField.getText(),
+				descriptionField.getText()));
 
-		data.add(new Todo(
-				dueDatePicker.getValue(),
-				todoField.getText()));
-		// reset the date
-		dueDatePicker.setValue(LocalDate.now());
-		// reset text field
-		todoField.setText("Todo");
+		// reset the valueField
+		valueField.clear();
 
+		// reset serialField
+		serialField.clear();
+
+		// reset descriptionField
+		descriptionField.clear();
 	}
 
-	public void clickDeleteTodo(ActionEvent actionEvent) {
+	public void clickNewDefaultItem(ActionEvent actionEvent) {
+		// add new object with the values selected in the bottom bar containers
+		data.add(new InventoryItem());
+	}
+
+	public void clickDeleteItem(ActionEvent actionEvent) {
 		// if TodoItem is selected:
 		// delete selected item at tableView index
 		// refresh column views
@@ -178,7 +150,7 @@ public class Controller {
 			// clear all the current items
 			data.clear();
 			// add all the loaded items
-			data.addAll((ArrayList<Todo>) loadFile);
+			data.addAll((ArrayList<InventoryItem>) loadFile);
 		}
 
 	}
@@ -189,7 +161,7 @@ public class Controller {
 		// run ManageFile.saveFile(path)
 		// use java FileChooser <----- IMPORTANT !!!!
 
-		ArrayList<Todo> listofTodos = new ArrayList<>(data);
+		ArrayList<InventoryItem> listofItems = new ArrayList<>(data);
 
 		fileChooser.setInitialFileName(mf.getFileName());
 
@@ -201,7 +173,7 @@ public class Controller {
 		if (file != null) {
 			mf.setFileName(file);
 			mf.setFilePath(file);
-			mf.writeFile(file, listofTodos);
+			mf.writeFile(file, listofItems);
 		}
 
 	}
@@ -220,4 +192,12 @@ public class Controller {
 		About.displayPopup();
 	}
 
+	@FXML
+	public void clickSearch(ActionEvent actionEvent) {
+		dataTemp.clear();
+		dataTemp.addAll(data);
+
+		// add method for searching in here somewhere
+
+	}
 }

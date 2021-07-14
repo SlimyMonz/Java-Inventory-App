@@ -16,13 +16,13 @@ import java.util.Objects;
 /* The purpose of this is to load the FXML file and launch the program */
 
 
-public class App extends Application {
+public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("App.fxml")));
-		stage.setTitle("Hocker's Todo App");
+		Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("InventoryWindow.fxml")));
+		stage.setTitle("Hocker's Inventory Manager");
 		stage.setScene(new Scene(root));
 		stage.show();
 

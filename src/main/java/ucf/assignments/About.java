@@ -14,28 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class About {
 
 	public static String getText() {
 
-		String text = null;
-
-		URL resource = About.class.getResource("about.txt");
-		assert resource != null;
-		String filepath = resource.getPath();
-
-		try {
-			text = Files.readString(Path.of(filepath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return text;
+		return "ENTER ABOUT TEXT HERE!";
 
 	}
 
