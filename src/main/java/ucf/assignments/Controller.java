@@ -54,8 +54,7 @@ public class Controller {
 	private Search sc;
 	@FXML
 	private Checker check;
-	@FXML
-	private  Errors error;
+
 
 
 	// on app start:
@@ -67,7 +66,7 @@ public class Controller {
 		fileChooser = new FileChooser();
 		mf = new ManageFile();
 		check = new Checker();
-		error = new Errors();
+
 
 		// make tableViewContainer editable anytime
 		tableViewContainer.setEditable(true);
@@ -110,6 +109,10 @@ public class Controller {
 
 
 	public void clickNewItem(ActionEvent actionEvent) {
+
+		// make sure that after searching things don't get fucky-wucky
+		tableViewContainer.getItems().clear();
+		tableViewContainer.setItems(data);
 
 		// create an if statement that uses a method to check all the values are valid or not
 		 if (check.allValues(data,
@@ -211,19 +214,18 @@ public class Controller {
 
 
 	public void clickSearch(ActionEvent actionEvent) {
+		// make sure dataTemp is clear
 		dataTemp.clear();
 
 		// add method for searching in here somewhere
-
 		sc.findItem(data, dataTemp, searchField.getText());
 
-		tableViewContainer.getItems().clear();
 		tableViewContainer.setItems(dataTemp);
 	}
 
 
 	public void clickReset(ActionEvent actionEvent) {
-		tableViewContainer.getItems().clear();
+		dataTemp.clear();
 		tableViewContainer.setItems(data);
 		searchField.clear();
 	}
