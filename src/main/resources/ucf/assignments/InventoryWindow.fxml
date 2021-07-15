@@ -38,6 +38,11 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Button>
+                              <Button layoutX="532.0" layoutY="10.0" maxWidth="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#clickReset" text="Clear">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -72,21 +77,21 @@
                             <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#clickNewItem" text="Add" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
-                              <TextField fx:id="serialField" promptText="Serial" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </GridPane.margin></TextField>
                               <TextField fx:id="valueField" promptText="Value">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </TextField>
+                              <TextField fx:id="serialField" promptText="Serial" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin></TextField>
                               <TextField fx:id="descriptionField" promptText="Description" GridPane.columnIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </TextField>
+                              <Button mnemonicParsing="false" onAction="#clickNewItem" text="Add" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
                            </children>
                         </GridPane>
                      </children>
@@ -112,8 +117,6 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Edit">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#clickNewDefaultItem" text="Add Item" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#clickDeleteItem" text="Delete Item" />
               </items>
             </Menu>

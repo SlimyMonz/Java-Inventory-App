@@ -14,25 +14,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+public class Errors {
 
-public class About {
-
-	public String getText() {
-
-		return "ENTER ABOUT TEXT HERE!";
-
-	}
-
-	public void displayPopup() {
+	public void displayError(String string) {
 		// create a new stage to display stuff
 		Stage popUp = new Stage();
 
 		// do not allow user to interact with app while stage is open
 		popUp.initModality(Modality.APPLICATION_MODAL);
-		popUp.setTitle("About");
+		popUp.setTitle("ERROR");
 
 		// create new label that takes in String from getText() method
-		Label label1 = new Label(getText());
+		Label label1 = new Label(string);
 		// create new button under the label
 		Button button1 = new Button("Close");
 		// set button action to close stage

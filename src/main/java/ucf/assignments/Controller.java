@@ -10,7 +10,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,6 +50,12 @@ public class Controller {
 	private FileChooser fileChooser;
 	@FXML
 	private ManageFile mf;
+	@FXML
+	private Search sc;
+	@FXML
+	private Checker check;
+	@FXML
+	private  Errors error;
 
 
 	// on app start:
@@ -54,8 +63,11 @@ public class Controller {
 	@FXML
 	public void initialize() {
 
+		sc = new Search();
 		fileChooser = new FileChooser();
 		mf = new ManageFile();
+		check = new Checker();
+		error = new Errors();
 
 		// make tableViewContainer editable anytime
 		tableViewContainer.setEditable(true);
@@ -97,29 +109,33 @@ public class Controller {
 	}
 
 
-	@FXML
 	public void clickNewItem(ActionEvent actionEvent) {
 
-		// add new object with the values selected in the bottom bar containers
-		data.add(new InventoryItem(
-				valueField.getText(),
-				serialField.getText(),
-				descriptionField.getText()));
+		// create an if statement that uses a method to check all the values are valid or not
+		 if (check.allValues(data,
+		                     valueField.getText(),
+		                     serialField.getText(),
+		                     descriptionField.getText()))
+		 { // then if valid:
+			 // add new object with the values selected in the bottom bar containers
+			 data.add(new InventoryItem(
+					 valueField.getText(),
+					 serialField.getText(),
+					 descriptionField.getText()));
 
-		// reset the valueField
-		valueField.clear();
+			 // reset the valueField
+			 valueField.clear();
 
-		// reset serialField
-		serialField.clear();
+			 // reset serialField
+			 serialField.clear();
 
-		// reset descriptionField
-		descriptionField.clear();
+			 // reset descriptionField
+			 descriptionField.clear();
+		 }
 	}
 
-	public void clickNewDefaultItem(ActionEvent actionEvent) {
-		// add new object with the values selected in the bottom bar containers
-		data.add(new InventoryItem());
-	}
+
+
 
 	public void clickDeleteItem(ActionEvent actionEvent) {
 		// if TodoItem is selected:
@@ -131,7 +147,7 @@ public class Controller {
 		}
 	}
 
-	@FXML
+
 	public void menuLoadFile(ActionEvent actionEvent) {
 
 		FileChooser fileChooser = new FileChooser();
@@ -155,13 +171,13 @@ public class Controller {
 
 	}
 
-	@FXML
+
 	public void menuSaveFile(ActionEvent actionEvent) {
 		// Path path = ManageFile.getFilePath()
 		// run ManageFile.saveFile(path)
 		// use java FileChooser <----- IMPORTANT !!!!
 
-		ArrayList<InventoryItem> listofItems = new ArrayList<>(data);
+		ArrayList<InventoryItem> listOfItems = new ArrayList<>(data);
 
 		fileChooser.setInitialFileName(mf.getFileName());
 
@@ -173,12 +189,12 @@ public class Controller {
 		if (file != null) {
 			mf.setFileName(file);
 			mf.setFilePath(file);
-			mf.writeFile(file, listofItems);
+			mf.writeFile(file, listOfItems);
 		}
 
 	}
 
-	@FXML
+
 	public void menuQuit(ActionEvent actionEvent) {
 		// prompt to save before quitting
 		// Application.stop() to quit app
@@ -186,18 +202,29 @@ public class Controller {
 		System.exit(0);
 	}
 
-	@FXML
+
 	public void clickAbout(ActionEvent actionEvent) {
 		// display About class popup
-		About.displayPopup();
+		About popup = new About();
+		popup.displayPopup();
 	}
 
-	@FXML
+
 	public void clickSearch(ActionEvent actionEvent) {
 		dataTemp.clear();
-		dataTemp.addAll(data);
 
 		// add method for searching in here somewhere
 
+		sc.findItem(data, dataTemp, searchField.getText());
+
+		tableViewContainer.getItems().clear();
+		tableViewContainer.setItems(dataTemp);
+	}
+
+
+	public void clickReset(ActionEvent actionEvent) {
+		tableViewContainer.getItems().clear();
+		tableViewContainer.setItems(data);
+		searchField.clear();
 	}
 }

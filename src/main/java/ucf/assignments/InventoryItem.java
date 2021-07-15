@@ -6,29 +6,17 @@
 package ucf.assignments;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
-import static java.math.BigDecimal.valueOf;
 
 // class must be Serializable to save to file
 public class InventoryItem implements Serializable {
 
 
-	private BigDecimal itemValue;
+	private String itemValue;
 	private String itemSerial;
 	private String itemDescription;
 
-	// blank and parameter constructors
-	public InventoryItem() {
-		// set Date to blank
-		// set default string to blank ""
-		// set default Boolean to false
-		this.itemValue = valueOf(0.00);
-		this.itemSerial = ("");
-		this.itemDescription = "";
 
-	}
-
+	// constructor MUST have three strings
 	public InventoryItem(String value, String string, String description) {
 		// set Date to datepicker date from parameter
 		// set string to parameter from GUI
@@ -56,24 +44,17 @@ public class InventoryItem implements Serializable {
 	// collection of Setters
 	public void setItemValue(String value) {
 		// set item value using string
-		this.itemValue = valueOf(Long.parseLong(value));
+		this.itemValue = value;
 	}
 
-	public void setItemSerial(String string) {
-
-		// limit the string to 10 characters
-
-		if (string.length() == 10) {
-			this.itemSerial = string;
-		}
-		else if (string.length() > 10) {
-			this.itemSerial = (string.substring(0, 10));
-		}
-
+	public void setItemSerial(String itemSerial) {
+		// set serial number
+		this.itemSerial = itemSerial;
 	}
 
-	public void setItemDescription(String description) {
-		if (description.length() >= 2) this.itemDescription = description;
+	public void setItemDescription(String itemDescription) {
+		// set item description
+		this.itemDescription = itemDescription;
 	}
 
 
