@@ -10,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,19 +21,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
-public class Controller {
+public class InventoryController {
 
 	@FXML
-	public TextField searchField;
+	private TextField searchField;
 	@FXML
-	public TextField valueField;
+	private TextField valueField;
 	@FXML
-	public TextField serialField;
+	private TextField serialField;
 	@FXML
-	public TextField descriptionField;
+	private TextField descriptionField;
 
 	@FXML
 	private TableView<InventoryItem> tableViewContainer;
@@ -56,7 +61,6 @@ public class Controller {
 	private Checker check;
 
 
-
 	// on app start:
 
 	@FXML
@@ -67,9 +71,7 @@ public class Controller {
 		mf = new ManageFile();
 		check = new Checker();
 
-
-		// make tableViewContainer editable anytime
-		tableViewContainer.setEditable(true);
+		// change the window text to push user to learn how to use the program
 		tableViewContainer.setPlaceholder(new Label("Check out HELP menu above for info."));
 
 		// make todoLists an FXCollections with an observable array list
@@ -111,33 +113,29 @@ public class Controller {
 	public void clickNewItem(ActionEvent actionEvent) {
 
 		// make sure that after searching things don't get fucky-wucky
-		tableViewContainer.getItems().clear();
 		tableViewContainer.setItems(data);
 
 		// create an if statement that uses a method to check all the values are valid or not
-		 if (check.allValues(data,
-		                     valueField.getText(),
-		                     serialField.getText(),
-		                     descriptionField.getText()))
-		 { // then if valid:
-			 // add new object with the values selected in the bottom bar containers
-			 data.add(new InventoryItem(
-					 valueField.getText(),
-					 serialField.getText(),
-					 descriptionField.getText()));
+		if (check.allValues(data,
+		                    valueField.getText(),
+		                    serialField.getText(),
+		                    descriptionField.getText())) { // then if valid:
+			// add new object with the values selected in the bottom bar containers
+			data.add(new InventoryItem(
+					valueField.getText(),
+					serialField.getText(),
+					descriptionField.getText()));
 
-			 // reset the valueField
-			 valueField.clear();
+			// reset the valueField
+			valueField.clear();
 
-			 // reset serialField
-			 serialField.clear();
+			// reset serialField
+			serialField.clear();
 
-			 // reset descriptionField
-			 descriptionField.clear();
-		 }
+			// reset descriptionField
+			descriptionField.clear();
+		}
 	}
-
-
 
 
 	public void clickDeleteItem(ActionEvent actionEvent) {
@@ -229,4 +227,44 @@ public class Controller {
 		tableViewContainer.setItems(data);
 		searchField.clear();
 	}
+
+	public void clickEditItem(ActionEvent actionEvent) throws IOException {
+
+		// find index of selected item
+		int index = tableViewContainer.getSelectionModel().getSelectedIndex();
+
+		if (index >= 0) {
+
+			// create new edit window
+			FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("EditWindow.fxml")));
+			Parent editRoot = loader.load();
+
+			// get controller of popup
+			EditController popup = loader.getController();
+
+			// transfer data to popup based on index
+			setEditPopupValues(popup, index);
+
+			// display the popup
+			Stage edit = new Stage();
+			edit.setTitle("Edit Item");
+			edit.setScene(new Scene(editRoot));
+			edit.showAndWait();
+
+
+
+			// removes the previous item to add the edited one
+			//tableViewContainer.getItems().remove(index);
+
+		}
+
+	}
+
+	private void setEditPopupValues(EditController popup, Integer index) {
+		popup.transferObservableList(data);
+		popup.transferValue(valueColumn.getCellData(index));
+		popup.transferSerial(serialColumn.getCellData(index));
+		popup.transferDescription(descriptionColumn.getCellData(index));
+	}
+
 }

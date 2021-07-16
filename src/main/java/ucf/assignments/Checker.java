@@ -22,7 +22,7 @@ public class Checker {
 	public Boolean valueFormat(String value) {
 
 		try {
-			Double number = Double.parseDouble(value);
+			Double.parseDouble(value);
 		} catch (NullPointerException | NumberFormatException e){
 			return false;
 		}

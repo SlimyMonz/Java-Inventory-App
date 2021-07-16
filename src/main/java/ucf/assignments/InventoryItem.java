@@ -10,6 +10,7 @@ import java.io.Serializable;
 // class must be Serializable to save to file
 public class InventoryItem implements Serializable {
 
+	private final Checker check = new Checker();
 
 	private String itemValue;
 	private String itemSerial;
@@ -27,8 +28,8 @@ public class InventoryItem implements Serializable {
 
 	// collection of Getters
 	public String getItemValue() {
-		// return Date value of object
-		return itemValue.toString();
+		// return dollar value of object
+		return itemValue;
 	}
 
 	public String getItemSerial() {
@@ -42,9 +43,9 @@ public class InventoryItem implements Serializable {
 	}
 
 	// collection of Setters
-	public void setItemValue(String value) {
+	public void setItemValue(String itemValue) {
 		// set item value using string
-		this.itemValue = value;
+		this.itemValue = itemValue;
 	}
 
 	public void setItemSerial(String itemSerial) {
