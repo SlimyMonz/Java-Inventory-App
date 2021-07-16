@@ -64,7 +64,7 @@ public class InventoryController {
 	// on app start:
 
 	@FXML
-	public void initialize() {
+	private void initialize() {
 
 		sc = new Search();
 		fileChooser = new FileChooser();
@@ -100,8 +100,7 @@ public class InventoryController {
 
 	@FXML
 	public void clickAddList(ActionEvent actionEvent) {
-		// launch a new TodoList app
-
+		// launch a new app instance
 		try {
 			new Main().start(new Stage());
 		} catch (Exception e) {
@@ -112,36 +111,34 @@ public class InventoryController {
 
 	public void clickNewItem(ActionEvent actionEvent) {
 
-		// make sure that after searching things don't get fucky-wucky
+		// makes sure that after using Search that things don't get weird
 		tableViewContainer.setItems(data);
 
 		// create an if statement that uses a method to check all the values are valid or not
 		if (check.allValues(data,
 		                    valueField.getText(),
 		                    serialField.getText(),
-		                    descriptionField.getText())) { // then if valid:
+		                    descriptionField.getText())) {
+			// then if valid:
 			// add new object with the values selected in the bottom bar containers
 			data.add(new InventoryItem(
 					valueField.getText(),
 					serialField.getText(),
 					descriptionField.getText()));
 
-			// reset the valueField
+			// reset the fields
 			valueField.clear();
-
-			// reset serialField
 			serialField.clear();
-
-			// reset descriptionField
 			descriptionField.clear();
 		}
+
+		// else if it's not valid, do nothing
 	}
 
 
 	public void clickDeleteItem(ActionEvent actionEvent) {
-		// if TodoItem is selected:
-		// delete selected item at tableView index
-		// refresh column views
+		// if row is selected:
+		// delete selected row at tableView index
 		int selectedIndex = tableViewContainer.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			tableViewContainer.getItems().remove(selectedIndex);

@@ -14,7 +14,11 @@ public class Checker {
 	public Boolean duplicates(ObservableList<InventoryItem> list, String string) {
 
 		for (InventoryItem serial : list) {
-			if (serial.getItemSerial().equals(string)) return false;
+			if (serial.getItemSerial().equals(string)) {
+				// create error for duplicates
+				error.displayError("Duplicate serial number!");
+				return false;
+			}
 		}
 		return true;
 	}
@@ -23,47 +27,52 @@ public class Checker {
 
 		try {
 			Double.parseDouble(value);
-		} catch (NullPointerException | NumberFormatException e){
+		} catch (NullPointerException | NumberFormatException e) {
+			// create error for incorrect monetary value
+			error.displayError("Value must contain numbers and\n" +
+			                   "be formatted as either 'integer.XX'\n" +
+			                   "or any arrangement of valid integers");
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean serialLength(String serial) {
+		// return boolean based on serial number length
+		if (serial.length() != 10) {
+			error.displayError("Needs to be a serial number of any 10 characters!");
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean validDescription(String description) {
+		// if the description is less than 2 or greater than 256 characters, return false
+		// else return true
+		if (description.length() < 2) {
+			error.displayError("Description needs to contain 2 or more characters!");
+			return false;
+		}
+
+		if (description.length() > 256) {
+			error.displayError("Description needs to be no more than 256 character!");
 			return false;
 		}
 
 		return true;
 	}
 
-	public Boolean serialLength(String serial) {
-		// return boolean based on serial number length
-		return serial.length() == 10;
-	}
-
-	public Boolean validDescription(String description) {
-		// return boolean based on description length
-		return description.length() >= 2;
-	}
-
 	public boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String descriptionField) {
 
-		if (!duplicates(data, serialField)) {
-			// create error for duplicates
-			error.displayError("Duplicate serial number!");
-			return false;
-		}
+		// use all value checkers in this one method
 
-		if (!valueFormat(value)) {
-			// create error for incorrect monetary value
-			error.displayError("Value must contain numbers and\n" +
-					                   "be formatted as either XXXX.XX or XXXX");
-			return false;
-		}
+		if (!duplicates(data, serialField)) return false;
 
-		if(!serialLength(serialField)) {
-			error.displayError("Needs to be a serial number of any 10 characters!");
-			return false;
-		}
+		if (!valueFormat(value)) return false;
 
-		if (!validDescription(descriptionField)) {
-			error.displayError("Description needs to be two or more characters!");
-			return false;
-		}
+		if (!serialLength(serialField)) return false;
+
+		if (!validDescription(descriptionField)) return false;
 
 		return true;
 	}

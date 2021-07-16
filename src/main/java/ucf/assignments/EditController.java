@@ -23,6 +23,7 @@ public class EditController {
 	@FXML
 	private ObservableList<InventoryItem> data;
 
+
 	public InventoryItem clickConfirmEdit(ActionEvent actionEvent) {
 
 		Checker check = new Checker();
@@ -40,6 +41,7 @@ public class EditController {
 		}
 		return null;
 	}
+
 
 public void transferObservableList(ObservableList<InventoryItem> data) {
 		this.data = data;

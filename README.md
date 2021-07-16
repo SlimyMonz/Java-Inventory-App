@@ -1,5 +1,10 @@
-# hocker-cop3330-assignment4part2
+# hocker-cop3330-assignment5
 
-Check out the HELP menu item when the app is opened.
+You can also read this in the HELP menu when the app is opened
 
 Note: Must be run using Gradle -> Tasks -> Application -> Run
+
+
+
+
+

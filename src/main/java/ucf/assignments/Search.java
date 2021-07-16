@@ -9,8 +9,6 @@ import javafx.collections.ObservableList;
 
 public class Search {
 
-
-
 	public void findItem(ObservableList<InventoryItem> origin, ObservableList<InventoryItem> destination, String string) {
 		// load in the origin
 		// for each item in the origin
