@@ -25,6 +25,8 @@ public class Checker {
 
 	public Boolean valueFormat(String value) {
 
+		if (value.contains("$")) value = value.replace("$", "");
+
 		try {
 			Double.parseDouble(value);
 		} catch (NullPointerException | NumberFormatException e) {

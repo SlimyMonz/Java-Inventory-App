@@ -19,7 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -201,13 +200,6 @@ public class InventoryController {
 	}
 
 
-	public void clickAbout(ActionEvent actionEvent) {
-		// display About class popup
-		About popup = new About();
-		popup.displayPopup();
-	}
-
-
 	public void clickSearch(ActionEvent actionEvent) {
 		// make sure dataTemp is clear
 		dataTemp.clear();
@@ -229,6 +221,9 @@ public class InventoryController {
 
 		// find index of selected item
 		int index = tableViewContainer.getSelectionModel().getSelectedIndex();
+		// make sure dataTemp is empty, then copy  current ObservableList
+		dataTemp.clear();
+		dataTemp.addAll(data);
 
 		if (index >= 0) {
 
@@ -243,25 +238,35 @@ public class InventoryController {
 			setEditPopupValues(popup, index);
 
 			// display the popup
-			Stage edit = new Stage();
-			edit.setTitle("Edit Item");
-			edit.setScene(new Scene(editRoot));
-			edit.showAndWait();
+			showEditWindow(editRoot);
 
+			if (!popup.nullNewItem()) {
+				data.clear();
+				data.addAll(dataTemp);
+				data.add(popup.getNewItem());
+			}
 
-
-			// removes the previous item to add the edited one
-			//tableViewContainer.getItems().remove(index);
+			// refreshes scene with edited data
+			tableViewContainer.setItems(data);
 
 		}
 
 	}
 
+	private void showEditWindow(Parent editRoot) {
+		Stage edit = new Stage();
+		edit.setTitle("Edit Item");
+		edit.setScene(new Scene(editRoot));
+		edit.showAndWait();
+	}
+
 	private void setEditPopupValues(EditController popup, Integer index) {
-		popup.transferObservableList(data);
+		popup.transferObservableList(dataTemp);
 		popup.transferValue(valueColumn.getCellData(index));
 		popup.transferSerial(serialColumn.getCellData(index));
 		popup.transferDescription(descriptionColumn.getCellData(index));
+		// only edit dataTemp, not the source ObservableList!
+		dataTemp.remove(index.intValue());
 	}
 
 }

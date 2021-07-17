@@ -21,31 +21,41 @@ public class EditController {
 	@FXML
 	private TextField editDescriptionField;
 	@FXML
-	private ObservableList<InventoryItem> data;
+	private ObservableList<InventoryItem> list;
+
+	private InventoryItem newItem;
 
 
-	public InventoryItem clickConfirmEdit(ActionEvent actionEvent) {
+	public void clickConfirmEdit(ActionEvent actionEvent) {
 
 		Checker check = new Checker();
 
 		// create an if statement that uses a method to check all the values are valid or not
-		if (check.allValues(data,
+		if (check.allValues(list,
 		                    editValueField.getText(),
 		                    editSerialField.getText(),
 		                    editDescriptionField.getText())) { // then if valid:
 			// add new object with the values selected in the bottom bar containers
-			return new InventoryItem(
+
+			this.newItem = new InventoryItem(
 					editValueField.getText(),
 					editSerialField.getText(),
 					editDescriptionField.getText());
 		}
-		return null;
+	}
+
+	public InventoryItem getNewItem() {
+		return this.newItem;
+	}
+
+	public Boolean nullNewItem() {
+		return this.newItem == null;
 	}
 
 
-public void transferObservableList(ObservableList<InventoryItem> data) {
-		this.data = data;
-}
+	public void transferObservableList(ObservableList<InventoryItem> list) {
+		this.list = list;
+	}
 
 	public void transferValue(String itemValue) {
 		this.editValueField.setText(itemValue);

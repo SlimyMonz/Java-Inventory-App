@@ -122,11 +122,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#clickDeleteItem" text="Delete Item" />
               </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#clickAbout" text="About" />
-            </items>
-          </Menu>
         </menus>
       </MenuBar>
    </top>

@@ -10,14 +10,12 @@ import java.io.Serializable;
 // class must be Serializable to save to file
 public class InventoryItem implements Serializable {
 
-	private final Checker check = new Checker();
-
 	private String itemValue;
 	private String itemSerial;
 	private String itemDescription;
 
 
-	// constructor MUST have three strings
+	// constructor MUST have three strings, never void nor empty!
 	public InventoryItem(String value, String string, String description) {
 		// set Date to datepicker date from parameter
 		// set string to parameter from GUI
@@ -45,6 +43,8 @@ public class InventoryItem implements Serializable {
 	// collection of Setters
 	public void setItemValue(String itemValue) {
 		// set item value using string
+		if (!itemValue.contains("$")) itemValue = "$" + itemValue;
+		if (!itemValue.contains(".")) itemValue = itemValue + ".00";
 		this.itemValue = itemValue;
 	}
 
@@ -57,6 +57,5 @@ public class InventoryItem implements Serializable {
 		// set item description
 		this.itemDescription = itemDescription;
 	}
-
 
 }
