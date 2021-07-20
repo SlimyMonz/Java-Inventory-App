@@ -15,6 +15,7 @@ public class InventoryItem implements Serializable {
 	private String itemDescription;
 
 
+
 	// constructor MUST have three strings, never void nor empty!
 	public InventoryItem(String value, String string, String description) {
 		// set Date to datepicker date from parameter
@@ -42,10 +43,8 @@ public class InventoryItem implements Serializable {
 
 	// collection of Setters
 	public void setItemValue(String itemValue) {
-		// set item value using string
-		if (!itemValue.contains("$")) itemValue = "$" + itemValue;
-		if (!itemValue.contains(".")) itemValue = itemValue + ".00";
-		this.itemValue = itemValue;
+		// set value based on formatter
+		this.itemValue = valueFormatting(itemValue);
 	}
 
 	public void setItemSerial(String itemSerial) {
@@ -56,6 +55,25 @@ public class InventoryItem implements Serializable {
 	public void setItemDescription(String itemDescription) {
 		// set item description
 		this.itemDescription = itemDescription;
+	}
+
+	// formatter for the value
+	private String valueFormatting(String itemValue) {
+
+		if (itemValue.contains(".")) {
+			String[] split = itemValue.split("\\.");
+			String dollars = split[0];
+			String cents = split[1];
+			while (cents.length() > 2) {
+				cents = cents.substring(0, cents.length()-1);
+			}
+			itemValue = dollars + "." + cents;
+		}
+
+		if (!itemValue.contains("$")) itemValue = "$" + itemValue;
+		if (!itemValue.contains(".")) itemValue = itemValue + ".00";
+
+		return itemValue;
 	}
 
 }

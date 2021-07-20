@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -22,8 +23,9 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 
 		Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("InventoryWindow.fxml")));
-		stage.setTitle("Hocker's Inventory Manager");
+		stage.setTitle("Inventory");
 		stage.setScene(new Scene(root));
+		stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.jpeg"))));
 		stage.show();
 
 	}

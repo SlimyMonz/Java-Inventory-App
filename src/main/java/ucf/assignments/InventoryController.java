@@ -67,6 +67,8 @@ public class InventoryController {
 
 		sc = new Search();
 		fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML",  "*.html"));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TSV",  "*.txt"));
 		mf = new ManageFile();
 		check = new Checker();
 
@@ -151,9 +153,9 @@ public class InventoryController {
 
 		fileChooser.setInitialDirectory(new File(mf.getFilePath()));
 
-		//if file has been chosen, load it
 		File file = fileChooser.showOpenDialog(null);
 
+		//if file has been chosen, load it
 		if (file != null) {
 			mf.setFileName(file);
 			mf.setFilePath(file);
@@ -174,7 +176,6 @@ public class InventoryController {
 		// run ManageFile.saveFile(path)
 		// use java FileChooser <----- IMPORTANT !!!!
 
-		ArrayList<InventoryItem> listOfItems = new ArrayList<>(data);
 
 		fileChooser.setInitialFileName(mf.getFileName());
 
@@ -184,9 +185,10 @@ public class InventoryController {
 
 		// if the file isn't empty/null, run three methods to save file
 		if (file != null) {
+			mf.setListToString(this.data);
 			mf.setFileName(file);
 			mf.setFilePath(file);
-			mf.writeFile(file, listOfItems);
+			mf.writeFile(file);
 		}
 
 	}

@@ -6,20 +6,19 @@
 package ucf.assignments;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javafx.collections.ObservableList;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+
 
 public class ManageFile {
 
 	private final String defaultPath = System.getProperty("user.home");
 	private String filePath;
 	private String fileName;
-
+	private String listToString;
 
 	public ManageFile() {
 		// initializes the file with a default name
@@ -54,17 +53,31 @@ public class ManageFile {
 		this.filePath = file.getParent();
 	}
 
-
-	public void writeFile(File file, ArrayList<InventoryItem> data) {
-		// get file and object data from parameter
-		// write data to a new file based on file path
-		try {
-			ObjectOutputStream outputStream = new ObjectOutputStream(Files.newOutputStream(file.toPath()));
-			outputStream.writeObject(data);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void setListToString(ObservableList<InventoryItem> array) {
+		StringBuilder string = new StringBuilder();
+		string.append("Value" + "\t" + "Serial" + "\t" + "Description" + "\n");
+		for (InventoryItem row : array) {
+			string.append(row.getItemValue()).append("\t");
+			string.append(row.getItemSerial()).append("\t");
+			string.append(row.getItemDescription()).append("\n");
 		}
+		this.listToString = string.toString();
 	}
+
+// turn the list of objets into a string and use a string builder or whatever, then write the string to files instead
+	// IE: HTML file will use <h>string content</h> and such
+	// replace ArrayList<InventoryItem> with String and use a different file writer that simply writes strings
+public void writeFile(File file) {
+	try(FileOutputStream fos = new FileOutputStream(file);
+	    BufferedOutputStream output = new BufferedOutputStream(fos)) {
+		//convert string to bytes
+		byte[] bytes = this.listToString.getBytes();
+		//write bytes to file
+		output.write(bytes);
+	} catch (IOException ignored) {
+		// ignore exceptions because they shouldn't get this far lmao
+	}
+}
 
 	public Object readFile(Path file) {
 		// read the data
@@ -77,5 +90,7 @@ public class ManageFile {
 		}
 		return null;
 	}
+
+
 
 }

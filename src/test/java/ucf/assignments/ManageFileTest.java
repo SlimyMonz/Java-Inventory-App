@@ -12,17 +12,16 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Array;
-import java.util.function.BooleanSupplier;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManageFileTest {
 
 	private final String dPath = System.getProperty("user.home");
-	private String fPath = "/Users/monz";
+	private String fPath = System.getProperty("user.home");
 	private String fName = "nameOfFile";
-	private String[] data = new String[1];
+	private final String[] data = new String[1];
 
 
 	@Test
@@ -68,7 +67,7 @@ class ManageFileTest {
 		}
 		File file = new File(String.valueOf(Path.of(fPath + "/" + fName)));
 		assertTrue(file.exists());
-		file.delete(); // removes the file. PLEASE BE CAREFUL ABOUT THIS.
+
 	}
 
 	@Test
@@ -84,6 +83,6 @@ class ManageFileTest {
 		}
 		File file = new File(String.valueOf(Path.of(fPath + "/" + fName)));
 		// assert the data exists
-		file.delete();
+
 	}
 }
