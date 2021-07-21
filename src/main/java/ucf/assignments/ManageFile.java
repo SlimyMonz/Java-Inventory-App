@@ -54,6 +54,12 @@ public class ManageFile {
 	}
 
 	public void setListToString(ObservableList<InventoryItem> array) {
+		if (this.fileName.contains(".txt")) toTSV(array);
+		if (this.fileName.contains(".html")) toHTML(array);
+
+	}
+
+	private void toTSV(ObservableList<InventoryItem> array) {
 		StringBuilder string = new StringBuilder();
 		string.append("Value" + "\t" + "Serial" + "\t" + "Description" + "\n");
 		for (InventoryItem row : array) {
@@ -64,7 +70,44 @@ public class ManageFile {
 		this.listToString = string.toString();
 	}
 
-// turn the list of objets into a string and use a string builder or whatever, then write the string to files instead
+	// this whole thing is a hardcoded mess of HTML
+	private void toHTML(ObservableList<InventoryItem> array) {
+
+		StringBuilder string = new StringBuilder();
+
+		// begin table builder
+		string.append("<table BORDER=1 CELLSPACING=5>");
+
+		// set caption
+		string.append("<caption>").append(this.fileName).append("</caption>");
+
+		// create the head
+		string.append("<thead>").append("<tr>");
+		string.append("<th>").append("Value").append("</th>");
+		string.append("<th>").append("Serial").append("</th>");
+		string.append("<th>").append("Description").append("</th>");
+		string.append("</thead>").append("</tr>");
+
+		// create the body (where the list data goes)
+		string.append("<tbody>");
+		for (InventoryItem row : array) {
+			// begin row items
+			string.append("<tr>");
+
+			string.append("<td>").append(row.getItemValue()).append("</td>");
+			string.append("<td>").append(row.getItemSerial()).append("</td>");
+			string.append("<td>").append(row.getItemDescription()).append("</td>");
+
+			string.append("</tr>");
+		}
+		string.append("</tbody>");
+
+		// end table build
+		string.append("</table>");
+		this.listToString = string.toString();
+	}
+
+	// turn the list of objets into a string and use a string builder or whatever, then write the string to files instead
 	// IE: HTML file will use <h>string content</h> and such
 	// replace ArrayList<InventoryItem> with String and use a different file writer that simply writes strings
 public void writeFile(File file) {
@@ -90,7 +133,5 @@ public void writeFile(File file) {
 		}
 		return null;
 	}
-
-
 
 }

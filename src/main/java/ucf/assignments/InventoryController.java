@@ -185,9 +185,10 @@ public class InventoryController {
 
 		// if the file isn't empty/null, run three methods to save file
 		if (file != null) {
-			mf.setListToString(this.data);
 			mf.setFileName(file);
 			mf.setFilePath(file);
+			// this MUST be after setFileName in order to figure out to write .txt or .html!
+			mf.setListToString(this.data);
 			mf.writeFile(file);
 		}
 
