@@ -160,12 +160,14 @@ public class InventoryController {
 			mf.setFileName(file);
 			mf.setFilePath(file);
 
-			Object loadFile = mf.readFile(file.toPath());
+			String fileString = mf.readFile(file.toPath());
 
+			Parser parse = new Parser();
 			// clear all the current items
 			data.clear();
 			// add all the loaded items
-			data.addAll((ArrayList<InventoryItem>) loadFile);
+			data = parse.stringToList(fileString);
+			tableViewContainer.setItems(data);
 		}
 
 	}
@@ -175,12 +177,8 @@ public class InventoryController {
 		// Path path = ManageFile.getFilePath()
 		// run ManageFile.saveFile(path)
 		// use java FileChooser <----- IMPORTANT !!!!
-
-
 		fileChooser.setInitialFileName(mf.getFileName());
-
 		fileChooser.setInitialDirectory(new File(mf.getFilePath()));
-
 		File file = fileChooser.showSaveDialog(new Stage());
 
 		// if the file isn't empty/null, run three methods to save file
@@ -188,8 +186,8 @@ public class InventoryController {
 			mf.setFileName(file);
 			mf.setFilePath(file);
 			// this MUST be after setFileName in order to figure out to write .txt or .html!
-			mf.setListToString(this.data);
-			mf.writeFile(file);
+			mf.setStringOfList(this.data);
+			mf.writeFile(file.toPath());
 		}
 
 	}
