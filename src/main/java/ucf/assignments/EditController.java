@@ -29,12 +29,16 @@ public class EditController {
 	public void clickConfirmEdit(ActionEvent actionEvent) {
 
 		Checker check = new Checker();
+		Errors err = new Errors();
 
 		// create an if statement that uses a method to check all the values are valid or not
 		if (check.allValues(list,
 		                    editValueField.getText(),
 		                    editSerialField.getText(),
 		                    editDescriptionField.getText())) { // then if valid:
+
+			err.displayError("Edit accepted.\n\n" +
+					                 "Close Edit Prompt to continue.");
 			// add new object with the values selected in the bottom bar containers
 
 			this.newItem = new InventoryItem(

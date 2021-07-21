@@ -22,7 +22,7 @@ public class Errors {
 
 		// do not allow user to interact with app while stage is open
 		popUp.initModality(Modality.APPLICATION_MODAL);
-		popUp.setTitle("ERROR");
+		popUp.setTitle("Prompt");
 
 		// create new label that takes in String from getText() method
 		Label label1 = new Label(string);

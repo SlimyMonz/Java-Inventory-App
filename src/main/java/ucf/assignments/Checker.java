@@ -52,30 +52,28 @@ public class Checker {
 		// if the description is less than 2 or greater than 256 characters, return false
 		// else return true
 		if (description.length() < 2) {
-			error.displayError("Description needs to contain 2 or more characters!");
+			error.displayError("Description needs to contain more than 2 characters!");
 			return false;
 		}
 
 		if (description.length() > 256) {
-			error.displayError("Description needs to be no more than 256 character!");
+			error.displayError("Description needs to be no more than 256 characters!");
 			return false;
 		}
+
+		if (description.contains("69")) error.displayError("nice");
 
 		return true;
 	}
 
-	public boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String descriptionField) {
+	public Boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String descriptionField) {
 
 		// use all value checkers in this one method
-
 		if (!duplicates(data, serialField)) return false;
-
 		if (!valueFormat(value)) return false;
-
 		if (!serialLength(serialField)) return false;
-
 		if (!validDescription(descriptionField)) return false;
-
+		// if all of those pass, then finally return true
 		return true;
 	}
 

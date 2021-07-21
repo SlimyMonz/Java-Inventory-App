@@ -73,7 +73,9 @@ public class InventoryController {
 		check = new Checker();
 
 		// change the window text to push user to learn how to use the program
-		tableViewContainer.setPlaceholder(new Label("Check out HELP menu above for info."));
+		tableViewContainer.setPlaceholder(new Label("Use the menu bar above to load a file.\n\n" +
+				                                            "Check the source files for the README.md\n\n" +
+				                                            "Use the bar below to start adding items."));
 
 		// make todoLists an FXCollections with an observable array list
 		data = FXCollections.observableArrayList();
@@ -93,6 +95,7 @@ public class InventoryController {
 
 		// clear columns to make sure container is empty, then add all the columns to the container
 		tableViewContainer.getColumns().clear();
+		//noinspection unchecked
 		tableViewContainer.getColumns().addAll(valueColumn, serialColumn, descriptionColumn);
 
 	}
