@@ -21,7 +21,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -85,9 +84,9 @@ public class InventoryController {
 		// use Columns class to set column data types
 		Columns column = new Columns();
 
-		column.setDateColumn(valueColumn);
-		column.setTextColumn(serialColumn);
-		column.setBoolColumn(descriptionColumn);
+		column.setValueColumn(valueColumn);
+		column.setSerialColumn(serialColumn);
+		column.setDescriptionColumn(descriptionColumn);
 
 
 		// set items for listViewContainer from ObservableList

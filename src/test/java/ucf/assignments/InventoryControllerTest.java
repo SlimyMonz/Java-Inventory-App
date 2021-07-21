@@ -7,7 +7,7 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+// CANNOT TEST BECAUSE THIS IS JAVAFX!!!
 
 class InventoryControllerTest {
 

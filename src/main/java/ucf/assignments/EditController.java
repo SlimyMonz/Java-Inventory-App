@@ -39,8 +39,7 @@ public class EditController {
 
 			err.displayError("Edit accepted.\n\n" +
 					                 "Close Edit Prompt to continue.");
-			// add new object with the values selected in the bottom bar containers
-
+			// add new object with the values selected in the value containers
 			this.newItem = new InventoryItem(
 					editValueField.getText(),
 					editSerialField.getText(),

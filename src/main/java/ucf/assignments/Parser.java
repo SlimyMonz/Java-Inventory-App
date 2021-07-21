@@ -10,10 +10,6 @@ import javafx.collections.ObservableList;
 
 public class Parser {
 
-	private StringBuilder builder;
-	private String string;
-
-
 	public String fromHTML(String html) {
 
 		html = html.replace("<table BORDER=1 CELLSPACING=5>", "");
@@ -40,9 +36,7 @@ public class Parser {
 
 			html = html.replaceFirst("</tr>", "\n");
 		}
-
 		return html;
-
 	}
 
 
@@ -99,12 +93,11 @@ public class Parser {
 	}
 
 	public ObservableList<InventoryItem> stringToList(String string) {
-		InventoryItem item;
+
 		ObservableList<InventoryItem> newList = FXCollections.observableArrayList();
 		String[] initialSplit = string.split("\n");
 
-
-		for (String row: initialSplit) {
+		for (String row : initialSplit) {
 			String[] eachSplit = row.split(" ");
 			newList.add(new InventoryItem(
 					eachSplit[0],

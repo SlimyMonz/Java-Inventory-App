@@ -6,7 +6,6 @@
 package ucf.assignments;
 
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
@@ -70,15 +69,16 @@ public class ManageFile {
 	// replace ArrayList<InventoryItem> with String and use a different file writer that simply writes strings
 	public void writeFile(Path path) {
 		try {
-			Files.writeString(path, this.stringOfList);
+			Files.writeString(path, getStringOfList());
 		} catch (IOException ignored) {
 		}
 	}
 
-	// make this read to string instead
+
 	public String readFile(Path file) {
 		// read the data
-		// return info as String to be parsed from TSV or HTML
+		// read as String to be parsed from TSV or HTML
+		// return as either format
 		Parser parse = new Parser();
 		try {
 			String temp = Files.readString(file);

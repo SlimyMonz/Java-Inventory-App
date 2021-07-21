@@ -9,29 +9,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InventoryItemTest {
+class ParserTest {
 
 	@Test
-	void getItemValue() {
+	void fromHTML() {
 	}
 
 	@Test
-	void getItemSerial() {
+	void toHTML() {
 	}
 
 	@Test
-	void getItemDescription() {
+	void toTSV() {
 	}
 
 	@Test
-	void setItemValue() {
+	void fromTSV() {
 	}
 
 	@Test
-	void setItemSerial() {
-	}
-
-	@Test
-	void setItemDescription() {
+	void stringToList() {
 	}
 }

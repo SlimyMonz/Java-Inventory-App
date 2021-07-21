@@ -14,7 +14,7 @@ public class Columns {
 
 	// REALLY IMPORTANT NOTE FOR GRADER: THIS IS JAVAFX STUFF! Cannot test it properly! There will NOT be a test class for this file!
 
-	public void setDateColumn(TableColumn<InventoryItem, String> valueColumn) {
+	public void setValueColumn(TableColumn<InventoryItem, String> valueColumn) {
 
 		// set each cell to a value from InventoryItem's object value string
 		valueColumn.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
@@ -23,7 +23,7 @@ public class Columns {
 
 	}
 
-	public void setTextColumn(TableColumn<InventoryItem, String> serialColumn) {
+	public void setSerialColumn(TableColumn<InventoryItem, String> serialColumn) {
 
 		// set each cell to a value from InventoryItem's serial object string
 		serialColumn.setCellValueFactory(new PropertyValueFactory<>("itemSerial"));
@@ -32,7 +32,7 @@ public class Columns {
 
 	}
 
-	public void setBoolColumn(TableColumn<InventoryItem, String> descriptionColumn) {
+	public void setDescriptionColumn(TableColumn<InventoryItem, String> descriptionColumn) {
 
 		// set column to a text description from string of object
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));

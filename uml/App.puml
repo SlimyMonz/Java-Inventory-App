@@ -1,56 +1,107 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class JavaFX.App {
-
+class JavaFX.Main {
     -start()
     -main()
 }
 
-class JavaFX.About {
-    +getText()
-    +displayPopup()
+class Checker {
+    +duplicates()
+    +valueFormat()
+    +serialLength()
+    +validDescription()
+    +allValues()
 }
 
-class Columns {
-    +setDateColumn()
-    +setTextColumn()
-    +setBoolColumn()
+class JavaFX.Columns {
+    +setValueColumn()
+    +setSerialColumn()
+    +setDescriptionColumn()
 }
 
-class JavaFX.Controller {
+class JavaFX.EditController {
+    -TextField editValueField
+    -TextField editSerialField
+    -TextField editDescriptionField
+    -Observable list
 
+    +clickConfirmEdit()
+    +getNewItem()
+    +nullNewItem()
+    +transferObservableList()
+    +transferValue()
+    +transferSerial()
+    +transferDescription()
+}
 
-	-todoField;
-	-dueDatePicker;
-	-tableViewContainer;
-	-data;
-	-dataTemp;
-	-dueDateColumn;
-	-todoFieldColumn;
-	-boolColumn;
-	-fileChooser;
-	-mf;
+class JavaFX.Errors {
+    -string
+    +displayError()
+}
+
+class JavaFX.InventoryController {
+
+	-searchField
+	-valueField
+	-serialField
+	-editDescriptionField
+
+	-tableVIewContainer
+	-data
+	-dataTemp
+
+	-dueDateColumn
+	-todoFieldColumn
+	-boolColumn
+
+	-fileChooser
+	-ManageFile mf
+	-Search sc
+	-Checker check
 
     +initialize()
     +clickAddList()
-    +clickDeleteList()
-    +clickShowCompleted()
-    +clickHideCompleted()
-    +clickPlus()
-    +clickMinus()
+    +clickNewItem()
+    +clickDeleteItem()
+
     +menuLoadFile()
-    +menuLoadList()
     +menuSaveFile()
-    +menuSaveList()
     +menuQuit()
+
+    +clickSearch()
+    +clickReset()
+    +clickEditItem()
+
+    -showEditWindow()
+    -setEditPopupValues()
+
+}
+
+class InventoryItem {
+
+    -String itemValue
+    -String itemSerial
+    -String itemDescription
+
+    +getItemValue()
+    +getItemSerial()
+    +getItemDescription()
+
+    +setItemValue()
+    +setItemSerial()
+    +setItemDescription()
+
+    - valueFormatting()
+
 }
 
 class ManageFile {
 
-    -fileName
-    -filePath
     -defaultPath
+    -filePath
+    -fileName
+    -stringOfList
 
     +setFileName()
     +getFileName()
@@ -58,37 +109,48 @@ class ManageFile {
     +setFilePath()
     +getFilePath()
 
+    +setStringOfList()
+    +getStringOfList()
+
     +writeFile()
     +readFile()
 }
 
-class Todo {
+class Parser {
+    +fromHTML()
+    +toHTML()
 
-    -String dueDate
-    -String todoText
-    -Boolean bool
+    +fromTSV()
+    +toTSV()
 
-    +setTodoText()
-    +getTodoText()
+    +stringToList()
+}
 
-    +setDueDate()
-    +getDueDate()
-
-    +setBool()
-    +getBool()
-
+class Search {
+    +findItem()
 }
 
 
+JavaFX.Main ==> JavaFX.InventoryController
 
-JavaFX.App => JavaFX.Controller
+JavaFX.InventoryController ==> ManageFile
+JavaFX.Columns => JavaFX.InventoryController
+JavaFX.InventoryController <=> JavaFX.EditController
+JavaFX.Errors ==> JavaFX.InventoryController
+JavaFX.Errors ==> JavaFX.EditController
+JavaFX.Errors ==> Checker
+JavaFX.InventoryController <== InventoryItem
+JavaFX.EditController <=> Search
+JavaFX.EditController <==> Checker
+JavaFX.EditController <==> InventoryItem
 
-JavaFX.Controller => ManageFile
-JavaFX.Controller = Columns
-JavaFX.Controller ==> JavaFX.About
-Columns <==> Todo
-ManageFile <=> Todo
-ManageFile <=> Columns
+InventoryItem <-> ManageFile
+
+Checker <--> ManageFile
+Search -> Checker
+
+Parser <-> ManageFile
+
 
 
 
