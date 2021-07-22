@@ -26,6 +26,10 @@ public class Checker {
 	public Boolean valueFormat(String value) {
 
 		if (value.contains("$")) value = value.replace("$", "");
+		if(value.contains("-")) {
+			error.displayError("Cannot be a negative value!");
+			return false;
+		}
 
 		try {
 			Double.parseDouble(value);

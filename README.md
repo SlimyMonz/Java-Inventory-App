@@ -52,7 +52,7 @@ If a user breaks one of these rules, an error message will pop up and inform the
     
 * Cannot use Edit to break the above rules. 
 
-* Value must not be empty.
+* Value must not be empty nor negative.
 * Serial must be exactly 10 characters.
 * Name must be 2-256 characters, inclusive.
 
