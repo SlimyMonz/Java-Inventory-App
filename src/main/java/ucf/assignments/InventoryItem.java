@@ -12,17 +12,17 @@ public class InventoryItem implements Serializable {
 
 	private String itemValue;
 	private String itemSerial;
-	private String itemDescription;
+	private String itemName;
 
 
 
 	// constructor MUST have three strings, never void nor empty!
-	public InventoryItem(String value, String string, String description) {
+	public InventoryItem(String value, String string, String Name) {
 		// set Date to datepicker date from parameter
 		// set string to parameter from GUI
 		setItemValue(value);
 		setItemSerial(string);
-		setItemDescription(description);
+		setItemName(Name);
 	}
 
 	// collection of Getters
@@ -36,9 +36,9 @@ public class InventoryItem implements Serializable {
 		return itemSerial;
 	}
 
-	public String getItemDescription() {
-		// return item description
-		return itemDescription;
+	public String getItemName() {
+		// return item Name
+		return itemName;
 	}
 
 	// collection of Setters
@@ -52,9 +52,9 @@ public class InventoryItem implements Serializable {
 		this.itemSerial = itemSerial;
 	}
 
-	public void setItemDescription(String itemDescription) {
-		// set item description
-		this.itemDescription = itemDescription;
+	public void setItemName(String itemName) {
+		// set item Name
+		this.itemName = itemName;
 	}
 
 	// formatter for the value

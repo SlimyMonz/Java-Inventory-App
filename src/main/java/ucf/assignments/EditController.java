@@ -7,7 +7,6 @@ package ucf.assignments;
 
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -19,14 +18,14 @@ public class EditController {
 	@FXML
 	private TextField editSerialField;
 	@FXML
-	private TextField editDescriptionField;
+	private TextField editNameField;
 	@FXML
 	private ObservableList<InventoryItem> list;
 
 	private InventoryItem newItem;
 
 
-	public void clickConfirmEdit(ActionEvent actionEvent) {
+	public void clickConfirmEdit() {
 
 		Checker check = new Checker();
 		Errors err = new Errors();
@@ -35,7 +34,7 @@ public class EditController {
 		if (check.allValues(list,
 		                    editValueField.getText(),
 		                    editSerialField.getText(),
-		                    editDescriptionField.getText())) { // then if valid:
+		                    editNameField.getText())) { // then if valid:
 
 			err.displayError("Edit accepted.\n\n" +
 					                 "Close Edit Prompt to continue.");
@@ -43,7 +42,7 @@ public class EditController {
 			this.newItem = new InventoryItem(
 					editValueField.getText(),
 					editSerialField.getText(),
-					editDescriptionField.getText());
+					editNameField.getText());
 		}
 	}
 
@@ -68,7 +67,7 @@ public class EditController {
 		this.editSerialField.setText(itemSerial);
 	}
 
-	public void transferDescription(String itemDescription) {
-		this.editDescriptionField.setText(itemDescription);
+	public void transferName(String itemName) {
+		this.editNameField.setText(itemName);
 	}
 }

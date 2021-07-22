@@ -10,20 +10,20 @@ class Checker {
     +duplicates()
     +valueFormat()
     +serialLength()
-    +validDescription()
+    +validName()
     +allValues()
 }
 
 class JavaFX.Columns {
     +setValueColumn()
     +setSerialColumn()
-    +setDescriptionColumn()
+    +setNameColumn()
 }
 
 class JavaFX.EditController {
     -TextField editValueField
     -TextField editSerialField
-    -TextField editDescriptionField
+    -TextField editNameField
     -Observable list
 
     +clickConfirmEdit()
@@ -32,7 +32,7 @@ class JavaFX.EditController {
     +transferObservableList()
     +transferValue()
     +transferSerial()
-    +transferDescription()
+    +transferName()
 }
 
 class JavaFX.Errors {
@@ -45,7 +45,7 @@ class JavaFX.InventoryController {
 	-searchField
 	-valueField
 	-serialField
-	-editDescriptionField
+	-editNameField
 
 	-tableVIewContainer
 	-data
@@ -82,15 +82,15 @@ class InventoryItem {
 
     -String itemValue
     -String itemSerial
-    -String itemDescription
+    -String itemName
 
     +getItemValue()
     +getItemSerial()
-    +getItemDescription()
+    +getItemName()
 
     +setItemValue()
     +setItemSerial()
-    +setItemDescription()
+    +setItemName()
 
     - valueFormatting()
 

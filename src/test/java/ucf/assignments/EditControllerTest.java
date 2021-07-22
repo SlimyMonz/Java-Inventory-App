@@ -42,7 +42,7 @@ class EditControllerTest {
 	}
 
 	@Test
-	void transferDescription() {
+	void transferName() {
 		// CANNOT TEST BECAUSE THIS IS JAVAFX!!!
 	}
 }

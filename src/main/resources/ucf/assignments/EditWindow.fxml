@@ -17,7 +17,7 @@
          <children>
             <TextField fx:id="editValueField" HBox.hgrow="SOMETIMES" />
             <TextField fx:id="editSerialField" HBox.hgrow="NEVER" />
-            <TextField fx:id="editDescriptionField" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="editNameField" HBox.hgrow="ALWAYS" />
             <Button minWidth="100.0" mnemonicParsing="false" onAction="#clickConfirmEdit" prefHeight="26.0" prefWidth="100.0" text="Confirm Edit" />
          </children>
       </HBox>

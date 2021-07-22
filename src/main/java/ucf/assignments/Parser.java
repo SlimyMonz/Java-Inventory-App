@@ -17,7 +17,7 @@ public class Parser {
 		html = html.replace("<thead><tr>" +
 				                    "<th>Value</th>" +
 				                    "<th>Serial</th>" +
-				                    "<th>Description</th>" +
+				                    "<th>Name</th>" +
 				                    "</tr></thead>", "");
 		html = html.replace("<tbody>", "");
 		html = html.replace("</tbody>", "");
@@ -29,7 +29,7 @@ public class Parser {
 
 			for (int i = 0; i < 2; i++) {
 				html = html.replaceFirst("<td>", "");
-				html = html.replaceFirst("</td>", " ");
+				html = html.replaceFirst("</td>", "#");
 			}
 			html = html.replaceFirst("<td>", "");
 			html = html.replaceFirst("</td>", "");
@@ -51,7 +51,7 @@ public class Parser {
 		string.append("<thead><tr>" +
 				              "<th>Value</th>" +
 				              "<th>Serial</th>" +
-				              "<th>Description</th>" +
+				              "<th>Name</th>" +
 				              "</tr></thead>");
 
 		// create the body (where the list data goes)
@@ -62,7 +62,7 @@ public class Parser {
 
 			string.append("<td>").append(row.getItemValue()).append("</td>");
 			string.append("<td>").append(row.getItemSerial()).append("</td>");
-			string.append("<td>").append(row.getItemDescription()).append("</td>");
+			string.append("<td>").append(row.getItemName()).append("</td>");
 
 			string.append("</tr>");
 		}
@@ -77,18 +77,18 @@ public class Parser {
 
 		StringBuilder string = new StringBuilder();
 
-		string.append("Value" + "\t\t" + "Serial" + "\t\t" + "Description" + "\n\n");
+		string.append("Value" + "\t\t" + "Serial" + "\t\t" + "Name" + "\n\n");
 		for (InventoryItem row : array) {
 			string.append(row.getItemValue()).append("\t\t");
 			string.append(row.getItemSerial()).append("\t\t");
-			string.append(row.getItemDescription()).append("\n");
+			string.append(row.getItemName()).append("\n");
 		}
 		return string.toString();
 	}
 
 	public String fromTSV(String tsv) {
-		tsv = tsv.replace("Value\t\tSerial\t\tDescription\n\n", "");
-		tsv = tsv.replace("\t\t", " ");
+		tsv = tsv.replace("Value\t\tSerial\t\tName\n\n", "");
+		tsv = tsv.replace("\t\t", "#");
 		return tsv;
 	}
 
@@ -98,7 +98,7 @@ public class Parser {
 		String[] initialSplit = string.split("\n");
 
 		for (String row : initialSplit) {
-			String[] eachSplit = row.split(" ");
+			String[] eachSplit = row.split("#");
 			newList.add(new InventoryItem(
 					eachSplit[0],
 					eachSplit[1],

@@ -45,34 +45,40 @@ public class Checker {
 			error.displayError("Needs to be a serial number of any 10 characters!");
 			return false;
 		}
+		if (serial.contains("#")) {
+			error.displayError("Cannot contain '#' in any circumstance!");
+			return false;
+		}
 		return true;
 	}
 
-	public Boolean validDescription(String description) {
-		// if the description is less than 2 or greater than 256 characters, return false
+	public Boolean validName(String Name) {
+		// if the Name is less than 2 or greater than 256 characters, return false
 		// else return true
-		if (description.length() < 2) {
-			error.displayError("Description needs to contain more than 2 characters!");
+		if (Name.length() < 2) {
+			error.displayError("Name needs to contain more than 2 characters!");
 			return false;
 		}
 
-		if (description.length() > 256) {
-			error.displayError("Description needs to be no more than 256 characters!");
+		if (Name.length() > 256) {
+			error.displayError("Name needs to be no more than 256 characters!");
 			return false;
 		}
 
-		if (description.contains("69")) error.displayError("nice");
-
+		if (Name.contains("#")) {
+			error.displayError("Cannot contain '#'!");
+			return false;
+		}
 		return true;
 	}
 
-	public Boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String descriptionField) {
+	public Boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String NameField) {
 
 		// use all value checkers in this one method
 		if (!duplicates(data, serialField)) return false;
 		if (!valueFormat(value)) return false;
 		if (!serialLength(serialField)) return false;
-		if (!validDescription(descriptionField)) return false;
+		if (!validName(NameField)) return false;
 		// if all of those pass, then finally return true
 		return true;
 	}

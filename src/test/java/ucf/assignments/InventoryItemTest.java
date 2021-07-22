@@ -11,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryItemTest {
 
+	String itemValue = "yeah";
+	String itemSerial = "1111111111";
+	String itemName = "cool";
+
 	@Test
 	void getItemValue() {
 	}
@@ -20,7 +24,7 @@ class InventoryItemTest {
 	}
 
 	@Test
-	void getItemDescription() {
+	void getItemName() {
 	}
 
 	@Test
@@ -32,6 +36,6 @@ class InventoryItemTest {
 	}
 
 	@Test
-	void setItemDescription() {
+	void setItemName() {
 	}
 }

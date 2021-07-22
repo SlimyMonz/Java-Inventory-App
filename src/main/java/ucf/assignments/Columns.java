@@ -32,12 +32,12 @@ public class Columns {
 
 	}
 
-	public void setDescriptionColumn(TableColumn<InventoryItem, String> descriptionColumn) {
+	public void setNameColumn(TableColumn<InventoryItem, String> NameColumn) {
 
-		// set column to a text description from string of object
-		descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
+		// set column to a text Name from string of object
+		NameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));
 		// set the entire column as a text field
-		descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		NameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
 	}
 
