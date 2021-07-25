@@ -1,6 +1,6 @@
 
 **Video version: https://www.youtube.com/watch?v=c_au44hB1Oo** \
-(Note: SWEAR WORDS AND MEAN COMMENTS!)
+(Note: SWEAR WORDS AND MEAN COMMENTS! Made with love for JUAN.)
 
 # How to use the Inventory App:
 
