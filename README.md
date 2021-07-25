@@ -1,3 +1,7 @@
+
+**Video version: https://www.youtube.com/watch?v=c_au44hB1Oo** \
+(Note: SWEAR WORDS AND MEAN COMMENTS!)
+
 # How to use the Inventory App:
 
 
