@@ -7,13 +7,13 @@ plugins {
 
     id 'java'
     id 'application' //needed for TASKS on sidebar
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 
 
 group 'org.monz'
-version '1.0-SNAPSHOT'
+version '1.0.1-UPDATE'
 
 repositories {
 
@@ -29,13 +29,11 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    implementation 'org.openjfx:javafx:16'
 
 }
 
 javafx {
 
-    version = '16'
     modules = ['javafx.base', 'javafx.graphics', 'javafx.controls', 'javafx.fxml']
 
 }
