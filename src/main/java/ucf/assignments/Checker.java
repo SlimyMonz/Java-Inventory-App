@@ -35,9 +35,10 @@ public class Checker {
 			Double.parseDouble(value);
 		} catch (NullPointerException | NumberFormatException e) {
 			// create error for incorrect monetary value
-			error.displayError("Value must contain numbers and\n" +
-			                   "be formatted as either 'integer.XX'\n" +
-			                   "or any arrangement of valid integers");
+			error.displayError("""
+                    Value must contain numbers and
+                    be formatted as either 'integer.XX'
+                    or any arrangement of valid integers""");
 			return false;
 		}
 		return true;
@@ -82,10 +83,9 @@ public class Checker {
 		if (!duplicates(data, serialField)) return false;
 		if (!valueFormat(value)) return false;
 		if (!serialLength(serialField)) return false;
-		if (!validName(NameField)) return false;
+        return validName(NameField);
 		// if all of those pass, then finally return true
-		return true;
-	}
+    }
 
 
 }

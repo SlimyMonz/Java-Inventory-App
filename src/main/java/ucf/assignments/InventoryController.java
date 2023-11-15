@@ -8,7 +8,6 @@ package ucf.assignments;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -72,9 +72,12 @@ public class InventoryController {
 		check = new Checker();
 
 		// change the window text to push user to learn how to use the program
-		tableViewContainer.setPlaceholder(new Label("Use the menu bar above to load a file.\n\n" +
-				                                            "Check the source files for the README.md\n\n" +
-				                                            "Use the bar below to start adding items."));
+		tableViewContainer.setPlaceholder(new Label("""
+                Use the menu bar above to load a file.
+
+                Check the source files for the README.md
+
+                Use the bar below to start adding items."""));
 
 		// make todoLists an FXCollections with an observable array list
 		data = FXCollections.observableArrayList();
@@ -102,7 +105,7 @@ public class InventoryController {
 	// on user button press:
 
 	@FXML
-	public void clickAddList(ActionEvent actionEvent) {
+	public void clickAddList() {
 		// launch a new app instance
 		try {
 			new Main().start(new Stage());
@@ -112,7 +115,7 @@ public class InventoryController {
 	}
 
 
-	public void clickNewItem(ActionEvent actionEvent) {
+	public void clickNewItem() {
 
 		// makes sure that after using Search that things don't get weird
 		tableViewContainer.setItems(data);
@@ -139,7 +142,7 @@ public class InventoryController {
 	}
 
 
-	public void clickDeleteItem(ActionEvent actionEvent) {
+	public void clickDeleteItem() {
 		// if row is selected:
 		// delete selected row at tableView index
 		int selectedIndex = tableViewContainer.getSelectionModel().getSelectedIndex();
@@ -149,7 +152,7 @@ public class InventoryController {
 	}
 
 
-	public void menuLoadFile(ActionEvent actionEvent) {
+	public void menuLoadFile() {
 
 		FileChooser fileChooser = new FileChooser();
 
@@ -175,8 +178,8 @@ public class InventoryController {
 	}
 
 
-	public void menuSaveFile(ActionEvent actionEvent) {
-		// Path path = ManageFile.getFilePath()
+	public void menuSaveFile() {
+		// path = ManageFile.getFilePath()
 		// run ManageFile.saveFile(path)
 		// use java FileChooser <----- IMPORTANT !!!!
 		fileChooser.setInitialFileName(mf.getFileName());
@@ -195,7 +198,7 @@ public class InventoryController {
 	}
 
 
-	public void menuQuit(ActionEvent actionEvent) {
+	public void menuQuit() {
 		// prompt to save before quitting
 		// Application.stop() to quit app
 		Platform.exit();
@@ -203,7 +206,7 @@ public class InventoryController {
 	}
 
 
-	public void clickSearch(ActionEvent actionEvent) {
+	public void clickSearch() {
 		// make sure dataTemp is clear
 		dataTemp.clear();
 
@@ -214,13 +217,13 @@ public class InventoryController {
 	}
 
 
-	public void clickReset(ActionEvent actionEvent) {
+	public void clickReset() {
 		dataTemp.clear();
 		tableViewContainer.setItems(data);
 		searchField.clear();
 	}
 
-	public void clickEditItem(ActionEvent actionEvent) throws IOException {
+	public void clickEditItem() throws IOException {
 
 		// find index of selected item
 		int index = tableViewContainer.getSelectionModel().getSelectedIndex();

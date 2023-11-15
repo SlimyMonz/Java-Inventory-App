@@ -36,8 +36,10 @@ public class EditController {
 		                    editSerialField.getText(),
 		                    editNameField.getText())) { // then if valid:
 
-			err.displayError("Edit accepted.\n\n" +
-					                 "Close Edit Prompt to continue.");
+			err.displayError("""
+                    Edit accepted.
+
+                    Close Edit Prompt to continue.""");
 			// add new object with the values selected in the value containers
 			this.newItem = new InventoryItem(
 					editValueField.getText(),
