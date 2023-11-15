@@ -2,6 +2,14 @@
 **Video version: https://www.youtube.com/watch?v=c_au44hB1Oo** \
 (Note: SWEAR WORDS AND MEAN COMMENTS! Made with love for JUAN.)
 
+# How to INSTALL:
+
+* Set up IntelliJ Ultimate
+* Clone project using IntelliJ
+* Sync Project with build.gradle
+* IntelliJ -> Run Configuration -> Add Gradle -> Set to "run"
+* Alternatively, in a terminal: "./gradlew run"
+
 # How to use the Inventory App:
 
 
