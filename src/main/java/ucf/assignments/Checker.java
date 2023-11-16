@@ -7,47 +7,45 @@ package ucf.assignments;
 
 import javafx.collections.ObservableList;
 
+import java.util.HashMap;
+
 public class Checker {
 
 	private final Errors error = new Errors();
 
-	public Boolean duplicates(ObservableList<InventoryItem> list, String string) {
+	public Boolean duplicateSerial(ObservableList<InventoryItem> list, String serialString) {
 
-		for (InventoryItem serial : list) {
-			if (serial.getItemSerial().equals(string)) {
-				// create error for duplicates
-				error.displayError("Duplicate serial number!");
-				return false;
-			}
+		HashMap<String, Integer> serialMap = new HashMap<>();
+
+		for (InventoryItem item : list) {
+			serialMap.put(item.getItemSerial(), 0);
 		}
-		return true;
-	}
+        return !serialMap.containsKey(serialString);
+    }
 
-	public Boolean valueFormat(String value) {
+	public Boolean valueFormat(String dollarValue) {
+		String modifiedDollarValue = dollarValue.replace("$", "");
 
-		if (value.contains("$")) value = value.replace("$", "");
-		if(value.contains("-")) {
+		if (dollarValue.contains("-")) {
 			error.displayError("Cannot be a negative value!");
 			return false;
 		}
-
 		try {
-			Double.parseDouble(value);
+			Double.parseDouble(modifiedDollarValue);
 		} catch (NullPointerException | NumberFormatException e) {
-			// create error for incorrect monetary value
 			error.displayError("""
-                    Value must contain numbers and
-                    be formatted as either 'integer.XX'
-                    or any arrangement of valid integers""");
+                Value must contain numbers and
+                be formatted as either 'integer.XX'
+                or any arrangement of valid integers""");
 			return false;
 		}
 		return true;
 	}
 
+
 	public Boolean serialLength(String serial) {
-		// return boolean based on serial number length
 		if (serial.length() != 10) {
-			error.displayError("Needs to be a serial number of any 10 characters!");
+			error.displayError("Needs to be a serial number of exactly 10 characters!");
 			return false;
 		}
 		if (serial.contains("#")) {
@@ -66,7 +64,7 @@ public class Checker {
 		}
 
 		if (Name.length() > 256) {
-			error.displayError("Name needs to be no more than 256 characters!");
+			error.displayError("Name canoot be more than 256 characters!");
 			return false;
 		}
 
@@ -77,10 +75,10 @@ public class Checker {
 		return true;
 	}
 
-	public Boolean allValues(ObservableList<InventoryItem> data, String value, String serialField, String NameField) {
+	public Boolean allValues(ObservableList<InventoryItem> inventoryItems, String value, String serialField, String NameField) {
 
 		// use all value checkers in this one method
-		if (!duplicates(data, serialField)) return false;
+		if (!duplicateSerial(inventoryItems, serialField)) return false;
 		if (!valueFormat(value)) return false;
 		if (!serialLength(serialField)) return false;
         return validName(NameField);
