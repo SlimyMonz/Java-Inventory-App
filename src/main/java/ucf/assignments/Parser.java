@@ -77,7 +77,10 @@ public class Parser {
 
 		StringBuilder string = new StringBuilder();
 
-		string.append("Value" + "\t\t" + "Serial" + "\t\t" + "Name" + "\n\n");
+		string.append("""
+                Value\t\tSerial\t\tName
+
+                """);
 		for (InventoryItem row : array) {
 			string.append(row.getItemValue()).append("\t\t");
 			string.append(row.getItemSerial()).append("\t\t");
