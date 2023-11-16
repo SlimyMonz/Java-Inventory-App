@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="COP3330">
+  <settings default="Harry Hocker">
     <module2copyright>
-      <element module="All" copyright="COP3330" />
+      <element module="All" copyright="Harry Hocker" />
     </module2copyright>
   </settings>
 </component>

@@ -1,6 +1,6 @@
 /*
- * UCF COP3330 Summer 2021 Assignment Solution
- * Copyright 2021 Harry Hocker
+ * Copyright Harry Hocker
+ * harry_hocker@icloud.com
  */
 
 package ucf.assignments;
