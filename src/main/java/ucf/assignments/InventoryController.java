@@ -37,9 +37,9 @@ public class InventoryController {
 	@FXML
 	private TableView<InventoryItem> tableViewContainer;
 	@FXML
-	private ObservableList<InventoryItem> data;
+	private ObservableList<InventoryItem> inventoryItems;
 	@FXML
-	private ObservableList<InventoryItem> dataTemp;
+	private ObservableList<InventoryItem> tempInventoryItems;
 
 	@FXML
 	private TableColumn<InventoryItem, String> valueColumn;
@@ -51,20 +51,20 @@ public class InventoryController {
 	@FXML
 	private FileChooser fileChooser;
 	@FXML
-	private ManageFile mf;
+	private ManageFile manageFile;
 	@FXML
-	private Search sc;
+	private Search search;
 	@FXML
 	private Checker check;
 
 	@FXML
 	private void initialize() {
 		// Initialize instances
-		sc = new Search();
+		search = new Search();
 		fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML",  "*.html"));
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TSV",  "*.txt"));
-		mf = new ManageFile();
+		manageFile = new ManageFile();
 		check = new Checker();
 
 		// Set placeholder text for the tableViewContainer
@@ -74,8 +74,8 @@ public class InventoryController {
                 Use the bar below to start adding items."""));
 
 		// Initialize ObservableLists
-		data = FXCollections.observableArrayList();
-		dataTemp = FXCollections.observableArrayList();
+		inventoryItems = FXCollections.observableArrayList();
+		tempInventoryItems = FXCollections.observableArrayList();
 
 		// Set up columns
 		Columns column = new Columns();
@@ -83,7 +83,7 @@ public class InventoryController {
 		column.setSerialColumn(serialColumn);
 		column.setNameColumn(nameColumn);
 
-		tableViewContainer.setItems(data);
+		tableViewContainer.setItems(inventoryItems);
 		tableViewContainer.getColumns().clear();
 		//noinspection unchecked
 		tableViewContainer.getColumns().addAll(valueColumn, serialColumn, nameColumn);
@@ -94,16 +94,14 @@ public class InventoryController {
 		// Launch a new app instance
 		try {
 			new Main().start(new Stage());
-		} catch (Exception e) {
-			//noinspection CallToPrintStackTrace
-			e.printStackTrace();
+		} catch (Exception ignored) {
 		}
 	}
 
 	public void clickNewItem() {
-		tableViewContainer.setItems(data);
-		if (check.allValues(data, valueField.getText(), serialField.getText(), nameField.getText())) {
-			data.add(new InventoryItem(valueField.getText(), serialField.getText(), nameField.getText()));
+		tableViewContainer.setItems(inventoryItems);
+		if (check.allValues(inventoryItems, valueField.getText(), serialField.getText(), nameField.getText())) {
+			inventoryItems.add(new InventoryItem(valueField.getText(), serialField.getText(), nameField.getText()));
 			valueField.clear();
 			serialField.clear();
 			nameField.clear();
@@ -119,30 +117,30 @@ public class InventoryController {
 
 	public void menuLoadFile() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File(mf.getFilePath()));
+		fileChooser.setInitialDirectory(new File(manageFile.getFilePath()));
 		File file = fileChooser.showOpenDialog(null);
 
 		if (file != null) {
-			mf.setFileName(file);
-			mf.setFilePath(file);
-			String fileString = mf.readFile(file.toPath());
+			manageFile.setFileName(file);
+			manageFile.setFilePath(file);
+			String fileString = manageFile.readFile(file.toPath());
 			Parser parse = new Parser();
-			data.clear();
-			data = parse.stringToList(fileString);
-			tableViewContainer.setItems(data);
+			inventoryItems.clear();
+			inventoryItems = parse.stringToList(fileString);
+			tableViewContainer.setItems(inventoryItems);
 		}
 	}
 
 	public void menuSaveFile() {
-		fileChooser.setInitialFileName(mf.getFileName());
-		fileChooser.setInitialDirectory(new File(mf.getFilePath()));
+		fileChooser.setInitialFileName(manageFile.getFileName());
+		fileChooser.setInitialDirectory(new File(manageFile.getFilePath()));
 		File file = fileChooser.showSaveDialog(new Stage());
 
 		if (file != null) {
-			mf.setFileName(file);
-			mf.setFilePath(file);
-			mf.setStringOfList(this.data);
-			mf.writeFile(file.toPath());
+			manageFile.setFileName(file);
+			manageFile.setFilePath(file);
+			manageFile.setStringOfList(this.inventoryItems);
+			manageFile.writeFile(file.toPath());
 		}
 	}
 
@@ -152,21 +150,21 @@ public class InventoryController {
 	}
 
 	public void clickSearch() {
-		dataTemp.clear();
-		sc.findItem(data, dataTemp, searchField.getText());
-		tableViewContainer.setItems(dataTemp);
+		tempInventoryItems.clear();
+		search.findItem(inventoryItems, tempInventoryItems, searchField.getText());
+		tableViewContainer.setItems(tempInventoryItems);
 	}
 
 	public void clickReset() {
-		dataTemp.clear();
-		tableViewContainer.setItems(data);
+		tempInventoryItems.clear();
+		tableViewContainer.setItems(inventoryItems);
 		searchField.clear();
 	}
 
 	public void clickEditItem() throws IOException {
 		int index = tableViewContainer.getSelectionModel().getSelectedIndex();
-		dataTemp.clear();
-		dataTemp.addAll(data);
+		tempInventoryItems.clear();
+		tempInventoryItems.addAll(inventoryItems);
 
 		if (index >= 0) {
 			FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("EditWindow.fxml")));
@@ -176,11 +174,11 @@ public class InventoryController {
 			showEditWindow(editRoot);
 
 			if (!popup.nullNewItem()) {
-				data.clear();
-				data.addAll(dataTemp);
-				data.add(popup.getNewItem());
+				inventoryItems.clear();
+				inventoryItems.addAll(tempInventoryItems);
+				inventoryItems.add(popup.getNewItem());
 			}
-			tableViewContainer.setItems(data);
+			tableViewContainer.setItems(inventoryItems);
 		}
 	}
 
@@ -192,10 +190,10 @@ public class InventoryController {
 	}
 
 	private void setEditPopupValues(EditController popup, Integer index) {
-		popup.transferObservableList(dataTemp);
+		popup.transferObservableList(tempInventoryItems);
 		popup.transferValue(valueColumn.getCellData(index));
 		popup.transferSerial(serialColumn.getCellData(index));
 		popup.transferName(nameColumn.getCellData(index));
-		dataTemp.remove(index.intValue());
+		tempInventoryItems.remove(index.intValue());
 	}
 }
