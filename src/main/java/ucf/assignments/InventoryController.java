@@ -33,7 +33,7 @@ public class InventoryController {
 	@FXML
 	private TextField serialField;
 	@FXML
-	private TextField NameField;
+	private TextField nameField;
 
 	@FXML
 	private TableView<InventoryItem> tableViewContainer;
@@ -47,7 +47,7 @@ public class InventoryController {
 	@FXML
 	private TableColumn<InventoryItem, String> serialColumn;
 	@FXML
-	private TableColumn<InventoryItem, String> NameColumn;
+	private TableColumn<InventoryItem, String> nameColumn;
 
 	@FXML
 	private FileChooser fileChooser;
@@ -89,7 +89,7 @@ public class InventoryController {
 
 		column.setValueColumn(valueColumn);
 		column.setSerialColumn(serialColumn);
-		column.setNameColumn(NameColumn);
+		column.setNameColumn(nameColumn);
 
 
 		// set items for listViewContainer from ObservableList
@@ -98,7 +98,7 @@ public class InventoryController {
 		// clear columns to make sure container is empty, then add all the columns to the container
 		tableViewContainer.getColumns().clear();
 		//noinspection unchecked
-		tableViewContainer.getColumns().addAll(valueColumn, serialColumn, NameColumn);
+		tableViewContainer.getColumns().addAll(valueColumn, serialColumn, nameColumn);
 
 	}
 
@@ -124,18 +124,18 @@ public class InventoryController {
 		if (check.allValues(data,
 		                    valueField.getText(),
 		                    serialField.getText(),
-		                    NameField.getText())) {
+		                    nameField.getText())) {
 			// then if valid:
 			// add new object with the values selected in the bottom bar containers
 			data.add(new InventoryItem(
 					valueField.getText(),
 					serialField.getText(),
-					NameField.getText()));
+					nameField.getText()));
 
 			// reset the fields
 			valueField.clear();
 			serialField.clear();
-			NameField.clear();
+			nameField.clear();
 		}
 
 		// else if it's not valid, do nothing
@@ -270,7 +270,7 @@ public class InventoryController {
 		popup.transferObservableList(dataTemp);
 		popup.transferValue(valueColumn.getCellData(index));
 		popup.transferSerial(serialColumn.getCellData(index));
-		popup.transferName(NameColumn.getCellData(index));
+		popup.transferName(nameColumn.getCellData(index));
 		// only edit dataTemp, not the source ObservableList!
 		dataTemp.remove(index.intValue());
 	}
